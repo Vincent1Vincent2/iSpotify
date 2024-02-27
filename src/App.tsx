@@ -1,7 +1,19 @@
-import "./App.css";
+import { useState } from "react";
+import Login from "./auth/Login";
+import Frame from "./components/Frame";
 
 function App() {
-  return <h1>We start here 21:14, 2024-02-27</h1>;
+  const [isAuthenticated, setAuthenticated] = useState(false);
+
+  return (
+    <div>
+      {isAuthenticated ? (
+        <Frame />
+      ) : (
+        <Login setAuthenticated={setAuthenticated} />
+      )}
+    </div>
+  );
 }
 
 export default App;
