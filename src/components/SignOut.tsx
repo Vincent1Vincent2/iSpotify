@@ -1,12 +1,8 @@
 import { useContext } from "react";
-import { AuthContext } from "./authCodeLogin";
+import { AuthContext } from "../auth/authCodeLogin";
 
-function Login() {
+function SignOut() {
   const authContext = useContext(AuthContext);
-
-  const signInAuth = () => {
-    authContext.signInAuth();
-  };
 
   const signOutAuth = () => {
     authContext.signOutAuth();
@@ -14,10 +10,9 @@ function Login() {
 
   return (
     <div>
-      <button onClick={signInAuth}>Sign In</button>
       <button onClick={signOutAuth}>Sign Out</button>
     </div>
   );
 }
 
-export default Login;
+export default SignOut;

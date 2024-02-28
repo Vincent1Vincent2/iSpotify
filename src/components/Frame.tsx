@@ -1,5 +1,5 @@
-import Screen from "./Screen";
-import ScrollWheel from "./ScrollWheel";
+import Screen from "./UI/Screen";
+import ScrollWheel from "./UI/ScrollWheel";
 
 function Frame() {
   return (

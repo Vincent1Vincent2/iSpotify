@@ -1,12 +1,7 @@
-import Login from "./auth/Login";
-import { AuthAccess } from "./auth/authCodeLogin";
+import AuthAccessInitializer from "./components/AuthAccessInitializer";
 
 function App() {
-  return (
-    <AuthAccess>
-      <Login />
-    </AuthAccess>
-  );
+  return <AuthAccessInitializer />;
 }
 
 export default App;

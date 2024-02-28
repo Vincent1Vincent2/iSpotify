@@ -2,10 +2,10 @@ import axios from "axios";
 import { REDIRECT_URI } from "./authURL";
 
 export const setRefreshAccessToken = async () => {
-  const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-  const CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
   const authCode = localStorage.getItem("auth_code");
 
+  const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+  const CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
   const params = new URLSearchParams();
   params.append("grant_type", "authorization_code");
   params.append("code", authCode as string);
