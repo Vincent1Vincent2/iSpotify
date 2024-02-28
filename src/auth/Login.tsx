@@ -1,18 +1,21 @@
-import React from "react";
+import { useContext } from "react";
+import { AuthContext } from "./authCodeLogin";
 
-interface LoginProps {
-  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-}
+function Login() {
+  const authContext = useContext(AuthContext);
 
-function Login({ setAuthenticated }: LoginProps) {
-  const handleLogin = () => {
-    console.log("Login button clicked");
-    setAuthenticated(true);
+  const signInAuth = () => {
+    authContext.signInAuth();
+  };
+
+  const signOutAuth = () => {
+    authContext.signOutAuth();
   };
 
   return (
-    <div className="h-full w-full flex justify-center items-center">
-      <button onClick={handleLogin}>Login</button>
+    <div>
+      <button onClick={signInAuth}>Sign In</button>
+      <button onClick={signOutAuth}>Sign Out</button>
     </div>
   );
 }

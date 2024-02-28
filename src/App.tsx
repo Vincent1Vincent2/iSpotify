@@ -1,18 +1,11 @@
-import { useState } from "react";
 import Login from "./auth/Login";
-import Frame from "./components/Frame";
+import { AuthAccess } from "./auth/authCodeLogin";
 
 function App() {
-  const [isAuthenticated, setAuthenticated] = useState(false);
-
   return (
-    <div>
-      {isAuthenticated ? (
-        <Frame />
-      ) : (
-        <Login setAuthenticated={setAuthenticated} />
-      )}
-    </div>
+    <AuthAccess>
+      <Login />
+    </AuthAccess>
   );
 }
 
