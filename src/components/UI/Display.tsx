@@ -1,0 +1,13 @@
+import Header from "./Header";
+import MenuNav from "./MenuNav";
+
+const Display: React.FC = () => {
+  return (
+    <main className="bg-slate-300 w-80 h-2/4 rounded-xl">
+      <Header />
+      <MenuNav />
+    </main>
+  );
+};
+
+export default Display;

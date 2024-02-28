@@ -1,16 +1,17 @@
+import { AuthContext } from "../API/auth/authCodeLogin";
+
 import { useContext } from "react";
-import { AuthContext } from "../auth/authCodeLogin";
 
 function SignIn() {
   const authContext = useContext(AuthContext);
 
-  const signInAuth = () => {
+  const handleSignIn = () => {
     authContext.signInAuth();
   };
 
   return (
     <div>
-      <button onClick={signInAuth}>Sign In</button>
+      <button onClick={handleSignIn}>Sign In</button>
     </div>
   );
 }

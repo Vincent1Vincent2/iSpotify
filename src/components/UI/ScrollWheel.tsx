@@ -1,7 +1,7 @@
 function ScrollWheel() {
   return (
     //Grid?
-    <div className="grid grid-cols-3 grid-rows-3 h-60">
+    <div className="grid grid-cols-3 grid-rows-3 h-80 py-5">
       <button className="col-start-2">Menu</button>
       <button className="row-start-2">Back</button>
       <button className="row-start-2">MiddleButton</button>

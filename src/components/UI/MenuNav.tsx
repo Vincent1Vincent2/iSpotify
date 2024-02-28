@@ -1,11 +1,11 @@
 import { useContext, useEffect, useMemo, useState } from "react";
+import { AuthContext } from "../../API/auth/authCodeLogin";
 import {
   DataItem,
   NavCategorySelector,
 } from "../../API/dataTypes/spotifyCategoryData";
 import { UserData } from "../../API/dataTypes/spotifyUserData";
 import fetchUserData from "../../API/fetchServices/fetchUserService";
-import { AuthContext } from "../../auth/authCodeLogin";
 import MenuCategory from "./MenuCategory";
 
 type NavCategory = "playlist" | "album" | "user";
@@ -18,11 +18,16 @@ function MenuNav() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchUserData({
-        type: category,
-        userId: userData?.id,
-      });
-      setData(data);
+      try {
+        const data = await fetchUserData({
+          type: category,
+          userId: userData?.id,
+        });
+        setData(data);
+      } catch (error) {
+        // Handle error
+        console.error("Error fetching data:", error);
+      }
     };
     fetchData();
   }, [category, userData]);
@@ -72,8 +77,8 @@ function MenuNav() {
   };
 
   return (
-    <div>
-      <div>
+    <div className="flex items-start flex-col">
+      <div className="p-2 flex flex-col">
         {categorySelector.map((item, index) => (
           <button onClick={() => handleSelection(item.type)} key={index}>
             {item.title}
@@ -90,14 +95,14 @@ function MenuNav() {
               type={categorySelected?.type}
               name={item?.name || item?.album?.name}
               thumbnail={
-                item?.images?.[item?.images?.length - 1]?.url ??
-                item?.album?.images?.[item?.album?.images?.length - 1 ?? 0]?.url
+                item?.images?.[item?.images?.length - 1]?.url ||
+                item?.album?.images?.[item?.album?.images?.length - 1]?.url
               }
             />
           ))}
       </div>
       <div>
-        <button onClick={signInAuth}>{categoryAlert(category)}</button>
+        <button onClick={signInAuth}>Sign In</button>
       </div>
     </div>
   );

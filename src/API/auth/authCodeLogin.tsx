@@ -1,16 +1,19 @@
 import { FC, ReactNode, createContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { UserData } from "../API/dataTypes/spotifyUserData";
-import { getUserData, getUserPlaylists } from "../API/userApi";
+import { UserData } from "../dataTypes/spotifyUserData";
+import { SpotifyPlayListItem } from "../dataTypes/spotifyUserPlaylist";
+import { getUserData, getUserPlaylists } from "../fetchServices/userApi";
 import { END_POINT, REDIRECT_URI, RESPONSE_TYPE, SCOPE } from "./authURL";
 import { setRefreshAccessToken } from "./setRefreshAccessToken";
 
-interface AuthProp {
+export interface AuthProp {
   children: ReactNode;
 }
 
-interface AuthContext {
+export interface AuthContext {
   isAuth: boolean;
+  userData: UserData;
+  spotifyPlayListItem: SpotifyPlayListItem;
   signInAuth: () => void;
   signOutAuth: () => void;
 }
@@ -23,7 +26,8 @@ export const AuthAccess: FC<AuthProp> = ({ children }) => {
 
   const [isAuth, setAuth] = useState<boolean>(Boolean(refreshToken));
   const [userData, setUserData] = useState<UserData>({});
-  const [userPlaylistData, setUserPlaylistData] = useState<UserData>({});
+  const [spotifyPlayListItem, setSpotifyPlayListItem] =
+    useState<SpotifyPlayListItem>({});
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,6 +40,13 @@ export const AuthAccess: FC<AuthProp> = ({ children }) => {
     }
   }, []);
 
+  const signInAuth = (): void => {
+    const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+    window.location.replace(
+      `${END_POINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`
+    );
+  };
+
   useEffect(() => {
     if (authCode && !isAuth) {
       const handleAuth = async () => {
@@ -47,7 +58,6 @@ export const AuthAccess: FC<AuthProp> = ({ children }) => {
       handleAuth();
     }
   }, [authCode]);
-
   useEffect(() => {
     const fetchUserData = async () => {
       const data = await getUserData();
@@ -61,19 +71,12 @@ export const AuthAccess: FC<AuthProp> = ({ children }) => {
   useEffect(() => {
     const fetchUserPlayList = async () => {
       const data = await getUserPlaylists();
-      setUserPlaylistData(data);
+      setSpotifyPlayListItem(data);
     };
     if (isAuth) {
       fetchUserPlayList();
     }
   }, [isAuth]);
-
-  const signInAuth = (): void => {
-    const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-    window.location.replace(
-      `${END_POINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`
-    );
-  };
 
   const signOutAuth = () => {
     localStorage.clear();
@@ -82,7 +85,9 @@ export const AuthAccess: FC<AuthProp> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuth, signInAuth, signOutAuth }}>
+    <AuthContext.Provider
+      value={{ isAuth, signInAuth, userData, spotifyPlayListItem, signOutAuth }}
+    >
       {children}
     </AuthContext.Provider>
   );

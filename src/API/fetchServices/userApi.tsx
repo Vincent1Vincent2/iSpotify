@@ -1,4 +1,4 @@
-import { spotifyClientApi } from "./spotifyClientApi";
+import { spotifyClientApi } from "../auth/createSpotifyClientApi";
 
 export const getUserData = async () => {
   const { data } = await spotifyClientApi.get(`me`);

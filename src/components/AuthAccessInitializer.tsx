@@ -1,14 +1,26 @@
-import { useContext } from "react";
-import { AuthAccess, AuthContext } from "../auth/authCodeLogin";
-import Frame from "./Frame";
+import React, { FC, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthAccess, AuthContext } from "../API/auth/authCodeLogin";
+import IpodBody from "./IpodBody";
 
-function AuthAccessInitializer() {
-  const { isAuth } = useContext(AuthContext);
+interface AuthAccessInitializerProps {}
+
+const AuthAccessInitializer: FC<AuthAccessInitializerProps> = () => {
+  const authContext = React.useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!authContext.isAuth) {
+      navigate("");
+    }
+  }, [authContext.isAuth, navigate]);
+
   return (
     <AuthAccess>
-      <Frame />
+      <IpodBody />
     </AuthAccess>
   );
-}
+};
 
 export default AuthAccessInitializer;

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AuthContext } from "../auth/authCodeLogin";
+import { AuthContext } from "../API/auth/authCodeLogin";
 
 function SignOut() {
   const authContext = useContext(AuthContext);

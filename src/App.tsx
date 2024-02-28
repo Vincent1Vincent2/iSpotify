@@ -1,17 +1,13 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Navigate,
-  Route,
-} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import AuthAccessInitializer from "./components/AuthAccessInitializer";
-import Frame from "./components/Frame";
+AuthAccessInitializer;
 
-export const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" Component={AuthAccessInitializer}>
-      <Route index element={<Navigate to="iSpotify" />} />
-      <Route path="iSpotify" Component={Frame} />
-    </Route>
-  )
-);
+const App = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<AuthAccessInitializer />}></Route>
+    </Routes>
+  );
+};
+
+export default App;

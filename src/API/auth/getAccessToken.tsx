@@ -6,7 +6,7 @@ export const getAccessToken = async () => {
   ).getTime();
   const currentTime = new Date();
 
-  if (currentTime.getTime() - accessTokenAt < 990823) {
+  if (currentTime.getTime() - accessTokenAt < 990823333) {
     return localStorage.getItem("access_token");
   } else {
     return await setRefreshAccessToken();

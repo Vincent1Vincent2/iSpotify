@@ -1,4 +1,4 @@
-import { scopes } from "../API/spotifyScopeConfig";
+import { scopes } from "../spotifyConfig/spotifyScopeConfig";
 
 export const END_POINT = "https://accounts.spotify.com/authorize";
 export const RESPONSE_TYPE = "code";
