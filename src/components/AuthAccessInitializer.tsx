@@ -1,11 +1,14 @@
-import { AuthAccess } from "../auth/authCodeLogin";
-import SignIn from "./SignIn";
+import { useContext } from "react";
+import { AuthAccess, AuthContext } from "../auth/authCodeLogin";
+import Frame from "./Frame";
 
 function AuthAccessInitializer() {
+  const { isAuth } = useContext(AuthContext);
   return (
     <AuthAccess>
-      <SignIn />
+      <Frame />
     </AuthAccess>
   );
 }
+
 export default AuthAccessInitializer;

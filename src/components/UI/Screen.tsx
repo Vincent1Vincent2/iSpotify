@@ -1,13 +1,18 @@
+import { FC, ReactNode, memo } from "react";
 import Header from "./Header";
-import MenueNav from "./Menu";
+import MenuNav from "./Menu";
 
-function Screen() {
+interface ScreenProps {
+  children?: ReactNode;
+}
+
+const Screen: FC<ScreenProps> = () => {
   return (
     <main className="bg-slate-300 w-60 h-44 rounded-xl">
       <Header />
-      <MenueNav />
+      <MenuNav />
     </main>
   );
-}
+};
 
-export default Screen;
+export default memo(Screen);
