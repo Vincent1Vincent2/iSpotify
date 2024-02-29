@@ -1,110 +1,14 @@
-import { useContext, useEffect, useMemo, useState } from "react";
-import { AuthContext } from "../../API/auth/authCodeLogin";
-import {
-  DataItem,
-  NavCategorySelector,
-} from "../../API/dataTypes/spotifyCategoryData";
-import { UserData } from "../../API/dataTypes/spotifyUserData";
-import fetchUserData from "../../API/fetchServices/fetchUserService";
-import MenuCategory from "./MenuCategory";
+import { Link, Outlet } from "react-router-dom";
 
-type NavCategory = "playlist" | "album" | "user";
-
-function MenuNav() {
-  const [userData] = useState<UserData>({});
-  const { signInAuth } = useContext(AuthContext);
-  const [category, setCategory] = useState<NavCategory>("playlist");
-  const [data, setData] = useState<DataItem[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchUserData({
-          type: category,
-          userId: userData?.id,
-        });
-        setData(data);
-      } catch (error) {
-        // Handle error
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, [category, userData]);
-
-  const categorySelector: NavCategorySelector[] = useMemo(
-    () => [
-      {
-        type: "playlist",
-        title: "Playlist",
-        id: "00003",
-        active: category === "playlist",
-      },
-      {
-        type: "album",
-        title: "Album",
-        id: "00004",
-        active: category === "album",
-      },
-      {
-        type: "user",
-        title: "User",
-        id: "00005",
-        active: category === "user",
-      },
-    ],
-    [category]
-  );
-
-  const categorySelected = useMemo(
-    () => categorySelector.find((categorySelected) => categorySelected.active),
-    [category]
-  );
-
-  const categoryAlert = (type: NavCategory): string => {
-    switch (type) {
-      case "playlist":
-        return "Sign in for your playlists";
-      case "album":
-        return " Sign in for saved albums";
-      case "user":
-        return "Sign in for your profile";
-    }
-  };
-
-  const handleSelection = (type: "playlist" | "album" | "user"): void => {
-    setCategory(type);
-  };
-
+const MenuNav = () => {
   return (
-    <div className="flex items-start flex-col">
-      <div className="p-2 flex flex-col">
-        {categorySelector.map((item, index) => (
-          <button onClick={() => handleSelection(item.type)} key={index}>
-            {item.title}
-          </button>
-        ))}
-      </div>
-      <div>
-        {data &&
-          data.map((item, index: number) => (
-            <MenuCategory
-              key={item?.id || index}
-              id={item?.id || item?.album?.id}
-              author={item?.owner && item?.owner?.display_name}
-              type={categorySelected?.type}
-              name={item?.name || item?.album?.name}
-              thumbnail={
-                item?.images?.[item?.images?.length - 1]?.url ||
-                item?.album?.images?.[item?.album?.images?.length - 1]?.url
-              }
-            />
-          ))}
-      </div>
-      <div>
-        <button onClick={signInAuth}>Sign In</button>
-      </div>
+    <div>
+      <Link to="playlist">
+        <button>Playlist</button>
+        <Outlet />
+      </Link>
     </div>
   );
-}
+};
+
 export default MenuNav;

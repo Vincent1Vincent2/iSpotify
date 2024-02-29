@@ -13,8 +13,6 @@ export const getUserPlaylists = async (limit = 20, offset = 0) => {
         offset,
       },
     });
-
-    console.log("User Playlists:", data);
     return data;
   } catch (error) {
     console.error("Error fetching user playlists:", error);

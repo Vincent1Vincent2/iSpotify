@@ -1,4 +1,4 @@
-import { spotifyImagesData } from "./spotifyImagesData";
+import { SpotifyImagesData } from "./spotifyImagesData";
 import { SpotifyTrackData } from "./spotifyTrackData";
 
 export interface SpotifyPlayListItem {
@@ -8,14 +8,14 @@ export interface SpotifyPlayListItem {
   id?: string;
   name?: string;
   description?: string;
-  images?: spotifyImagesData[];
+  images?: SpotifyImagesData[];
 }
 
 export interface SpotifyPlaylistData {
   description?: string;
   id?: string;
   name?: string;
-  images?: spotifyImagesData[];
+  images?: SpotifyImagesData[];
   owner?: {
     display_name?: string;
     id?: string;

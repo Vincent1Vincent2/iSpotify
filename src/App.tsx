@@ -1,12 +1,13 @@
-import { Route, Routes } from "react-router-dom";
+import { AuthAccess } from "./API/auth/authCodeLogin";
 import AuthAccessInitializer from "./components/AuthAccessInitializer";
 AuthAccessInitializer;
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<AuthAccessInitializer />}></Route>
-    </Routes>
+    <AuthAccess>
+      {" "}
+      <AuthAccessInitializer></AuthAccessInitializer>
+    </AuthAccess>
   );
 };
 
