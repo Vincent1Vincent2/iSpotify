@@ -1,5 +1,4 @@
-import { SpotifyAlbumData } from "./spotifyAlbumData";
-import { SpotifyArtist, SpotifyArtistData } from "./spotifyArtistData";
+import { ArtistObject } from "./spotifyArtistData";
 
 export type NavCategorySelector = {
   title: string;
@@ -14,12 +13,5 @@ export interface MenuItemCategory {
   thumbnail?: string | undefined;
   name?: string | undefined;
   id?: string;
-  artists?: SpotifyArtistData[];
-}
-
-export interface DataItem extends SpotifyAlbumData, SpotifyArtist {
-  owner?: {
-    display_name: string;
-  };
-  artists?: SpotifyArtistData[];
+  artists?: ArtistObject[];
 }

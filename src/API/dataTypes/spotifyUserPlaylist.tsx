@@ -1,5 +1,5 @@
 import { SpotifyImagesData } from "./spotifyImagesData";
-import { SpotifyTrackData } from "./spotifyTrackData";
+import { TrackObject } from "./spotifyTrackData";
 
 export interface SpotifyPlayListItem {
   title?: string;
@@ -12,16 +12,16 @@ export interface SpotifyPlayListItem {
 }
 
 export interface SpotifyPlaylistData {
-  description?: string;
-  id?: string;
-  name?: string;
-  images?: SpotifyImagesData[];
-  owner?: {
-    display_name?: string;
-    id?: string;
-  };
-  tracks?: {
-    items?: { track: SpotifyTrackData }[];
-    total?: number;
-  };
+  description: string;
+  id: string;
+  name: string;
+  images: SpotifyImagesData[] | null;
+  owner: {
+    display_name: string | null;
+    id: string | null;
+  } | null;
+  tracks: {
+    items: TrackObject[] | null;
+    total: number | null;
+  } | null;
 }

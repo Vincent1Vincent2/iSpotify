@@ -1,8 +1,5 @@
 import { FC, ReactNode, createContext, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { UserData } from "../dataTypes/spotifyUserData";
-import { SpotifyPlayListItem } from "../dataTypes/spotifyUserPlaylist";
-import { getUserData, getUserPlaylists } from "../fetchServices/userApi";
+import { useLocation, useNavigate } from "react-router-dom";
 import { END_POINT, REDIRECT_URI, RESPONSE_TYPE, SCOPE } from "./authURL";
 import { setRefreshAccessToken } from "./setRefreshAccessToken";
 
@@ -12,8 +9,6 @@ export interface AuthProp {
 
 export const AuthContext = createContext({
   isAuth: false,
-  userData: {} as UserData,
-  spotifyPlayListItem: {} as SpotifyPlayListItem,
   signInAuth: () => {},
   signOutAuth: () => {},
 });
@@ -21,11 +16,7 @@ export const AuthContext = createContext({
 export const AuthAccess: FC<AuthProp> = ({ children }) => {
   const refreshToken = localStorage.getItem("refresh_token");
   const authCode = localStorage.getItem("auth_code");
-
   const [isAuth, setAuth] = useState<boolean>(Boolean(refreshToken));
-  const [userData, setUserData] = useState<UserData>({});
-  const [spotifyPlayListItem, setSpotifyPlayListItem] =
-    useState<SpotifyPlayListItem>({});
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,7 +25,7 @@ export const AuthAccess: FC<AuthProp> = ({ children }) => {
     const search = location.search.split("=");
     if (search[0] === "?code") {
       localStorage.setItem("auth_code", search[1]);
-      navigate({ search: "" });
+      navigate("/");
     }
   }, []);
 
@@ -44,16 +35,13 @@ export const AuthAccess: FC<AuthProp> = ({ children }) => {
       window.location.replace(
         `${END_POINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`
       );
-
       // Wait for a while to allow the redirection to happen
       await new Promise((resolve) => setTimeout(resolve, 1000));
-
       const search = location.search.split("=");
       if (search[0] === "?code") {
         localStorage.setItem("auth_code", search[1]);
         await setRefreshAccessToken();
         setAuth(true);
-        <Link to="ipod"></Link>;
       } else {
         console.error("Authentication failed. Auth code not found.");
       }
@@ -73,25 +61,6 @@ export const AuthAccess: FC<AuthProp> = ({ children }) => {
       handleAuth();
     }
   }, [authCode]);
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const data = await getUserData();
-      setUserData(data);
-    };
-    if (isAuth) {
-      fetchUserData();
-    }
-  }, [isAuth]);
-
-  useEffect(() => {
-    const fetchUserPlayList = async () => {
-      const data = await getUserPlaylists();
-      setSpotifyPlayListItem(data);
-    };
-    if (isAuth) {
-      fetchUserPlayList();
-    }
-  }, [isAuth]);
 
   const signOutAuth = () => {
     localStorage.clear();
@@ -100,9 +69,7 @@ export const AuthAccess: FC<AuthProp> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider
-      value={{ isAuth, signInAuth, userData, spotifyPlayListItem, signOutAuth }}
-    >
+    <AuthContext.Provider value={{ isAuth, signInAuth, signOutAuth }}>
       {children}
     </AuthContext.Provider>
   );

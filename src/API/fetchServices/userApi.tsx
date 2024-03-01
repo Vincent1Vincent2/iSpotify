@@ -1,21 +1,41 @@
+import axios from "axios";
 import { spotifyClientApi } from "../auth/createSpotifyClientApi";
+import { getAccessToken } from "../auth/getAccessToken";
 
 export const getUserData = async () => {
   const { data } = await spotifyClientApi.get(`me`);
   return data;
 };
 
-export const getUserPlaylists = async (limit = 20, offset = 0) => {
+export const getUserPlaylists = async (limit = 50, offset = 0) => {
   try {
+    const headers = {
+      Authorization: `Bearer ${await getAccessToken()}`,
+    };
+
+    console.log("Request headers for getUserPlaylists:", headers);
+
     const { data } = await spotifyClientApi.get("me/playlists", {
+      headers,
       params: {
         limit,
         offset,
       },
     });
+
     return data;
-  } catch (error) {
-    console.error("Error fetching user playlists:", error);
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error("Error fetching user playlists:", error);
+
+      // Log the response data if available
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+      }
+    } else {
+      console.error("Unexpected error fetching user playlists:", error);
+    }
+
     throw error;
   }
 };
@@ -34,4 +54,45 @@ export const getUserTopArtists = async () => {
   });
   console.log(data);
   return data;
+};
+
+export const getPlaylistTrack = async (
+  playlistId: string,
+  limit = 50,
+  offset = 0
+) => {
+  try {
+    const headers = {
+      Authorization: `Bearer ${await getAccessToken()}`,
+    };
+
+    console.log("Request headers for getTrackPlaylists:", headers);
+
+    const { data } = await spotifyClientApi.get(
+      `playlists/${playlistId}/tracks`,
+      {
+        headers,
+        params: {
+          playlistId,
+          limit,
+          offset,
+        },
+      }
+    );
+
+    return data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error("Error fetching tracks:", error);
+
+      // Log the response data if available
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+      }
+    } else {
+      console.error("Unexpected error fetching tracks:", error);
+    }
+
+    throw error;
+  }
 };

@@ -1,9 +1,9 @@
-import Display from "./UI/Display";
-import ScrollWheel from "./UI/ScrollWheel";
+import Display from "./Display";
+import ScrollWheel from "./ScrollWheel";
 
-const IpodBody: React.FC = () => {
+const IpodBody = () => {
   return (
-    <div className="h-2/3 w-7/12 flex flex-col justify-between items-center bg-slate-200 gap-3 py-10 px-5 rounded-xl">
+    <div className="h-128 w-96 flex flex-col justify-between items-center bg-slate-200 gap-3 py-10 px-5 rounded-xl">
       <Display />
       <ScrollWheel />
     </div>

@@ -1,26 +1,30 @@
 import axios from "axios";
-import { getAccessToken } from "../auth/getAccessToken";
+import { REDIRECT_URI } from "./authURL";
 
-const formatParams = (params: Record<string, any>): string => {
-  return Object.entries(params)
-    .map(([key, value]) => `${key}=${value}`)
-    .join("&");
-};
+export const setRefreshAccessToken = async () => {
+  const authCode = localStorage.getItem("auth_code");
 
-export const spotifyClientApi = axios.create({
-  baseURL: "https://api.spotify.com/v1",
-  paramsSerializer: (params) => formatParams(params),
-});
+  const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+  const CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
+  const params = new URLSearchParams();
+  params.append("grant_type", "authorization_code");
+  params.append("code", authCode as string);
+  params.append("redirect_uri", REDIRECT_URI);
+  params.append("client_id", CLIENT_ID);
+  params.append("client_secret", CLIENT_SECRET);
 
-spotifyClientApi.interceptors.request.use(async (config) => {
-  config.headers["Content-Type"] = "application/json";
-  const token = await getAccessToken();
+  try {
+    const { data } = await axios.post(
+      "https://accounts.spotify.com/api/token",
+      params
+    );
+    const currentTime = new Date();
 
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  } else {
-    console.error("No access token available.");
+    localStorage.setItem("refresh_token", data.refresh_token);
+    localStorage.setItem("access_token", data.access_token);
+    localStorage.setItem("access_token_time", JSON.stringify(currentTime));
+    return { status: true };
+  } catch {
+    return { status: false };
   }
-
-  return config;
-});
+};

@@ -1,16 +1,21 @@
-import { SpotifyArtistData } from "./spotifyArtistData";
-import { spotifyImagesData } from "./spotifyImagesData";
+import { ArtistObject } from "./spotifyArtistData";
+import { SpotifyImagesData } from "./spotifyImagesData";
 
 export interface SpotifyAlbumData {
-  title?: string;
-  imageUrl?: string;
+  album_type?: string;
+  artists?: ArtistObject[];
+  available_markets?: string[];
+  external_urls?: { spotify: string };
+  href?: string;
   id?: string;
-  author?: string;
-  dateTime?: string;
-  album?: {
-    id?: string;
-    images?: spotifyImagesData[];
-    name?: string;
-    artists?: SpotifyArtistData[];
-  };
+  images?: SpotifyImagesData[];
+  name?: string;
+  release_date?: string;
+  release_date_precision?: string;
+  total_tracks?: number;
+  type?: string;
+  uri?: string;
 }
+
+// Add another interface for the array case
+export interface SpotifyAlbumArrayData extends Array<SpotifyAlbumData> {}

@@ -1,14 +1,16 @@
+import React from "react";
 import { AuthAccess } from "./API/auth/authCodeLogin";
-import AuthAccessInitializer from "./components/AuthAccessInitializer";
-AuthAccessInitializer;
+import IpodBody from "./components/IpodBody";
+import SignIn from "./components/SignIn";
+import SignOut from "./components/SignOut";
 
-const App = () => {
+export const App: React.FC = () => {
   return (
     <AuthAccess>
       {" "}
-      <AuthAccessInitializer></AuthAccessInitializer>
+      <SignIn></SignIn>
+      <SignOut></SignOut>
+      <IpodBody></IpodBody>
     </AuthAccess>
   );
 };
-
-export default App;

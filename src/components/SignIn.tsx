@@ -1,17 +1,29 @@
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../API/auth/authCodeLogin";
-
-import { useContext } from "react";
 
 function SignIn() {
   const authContext = useContext(AuthContext);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const handleSignIn = () => {
-    authContext.signInAuth();
+  const handleSignIn = async () => {
+    try {
+      authContext.signInAuth();
+      setIsAuthenticated(true);
+    } catch (error) {
+      // Handle authentication error
+      console.error("Authentication failed:", error);
+    }
   };
 
   return (
     <div>
-      <button onClick={handleSignIn}>Sign In</button>
+      {isAuthenticated ? (
+        // Use Link for navigation
+        <Link to="/ipod">Go to Ipod</Link>
+      ) : (
+        <button onClick={handleSignIn}>Sign In</button>
+      )}
     </div>
   );
 }

@@ -1,31 +1,26 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
-import IpodBody from "./components/IpodBody";
-import PlaylistItem from "./components/UI/Playlist";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import {
+  Navigate,
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
+import { App } from "./App";
+import Playlist from "./components/Playlist";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" Component={App}>
+      <Route index element={<Navigate to="ipod" />} />
+      <Route path="ipod" Component={Playlist} />
+      <Route path="*" element={<span>404</span>} />
+    </Route>
+  )
+);
 
-  {
-    path: "ipod",
-    element: <IpodBody></IpodBody>,
-    children: [
-      {
-        path: "playlist",
-        element: <PlaylistItem></PlaylistItem>,
-      },
-    ],
-  },
-]);
-
-let root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
-
-root.render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
