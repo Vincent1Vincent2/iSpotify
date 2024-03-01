@@ -4,18 +4,22 @@ Welcome to my dream Spotify player, a virtual iPod UI with Spotify integrated!
 
 Right now it's a work in progress but the core setup is done to continue allow further development.
 
+## Quick demo
+
+https://github.com/Vincent1Vincent2/iSpotify/assets/143703781/ecdcbdab-15b5-48f0-89ac-918d5daeb1ab
+
+
 ## Current Features
 
 - Oath2
 - User playlists and playlist tracks
 - Limited Playback (not 100% stable)
 
-## Features In The Works
-
+### Features In The Works
 - Stable Playback
 - Auto play next track in playlist
 
-## Features To Be Started
+### Features To Be Started
 
 - Navigation Menu
 - Search tracks
