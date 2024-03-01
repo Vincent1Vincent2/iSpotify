@@ -5,7 +5,7 @@ import { getPlaylistTrack } from "../API/fetchServices/userApi";
 
 interface PlaylistTracksComponentProps {
   playlistId: string;
-  spotifyPlayer: SpotifyPlayer; // Add SpotifyPlayer prop
+  spotifyPlayer: SpotifyPlayer;
 }
 
 const PlaylistTracksComponent: React.FC<PlaylistTracksComponentProps> = ({
@@ -20,12 +20,10 @@ const PlaylistTracksComponent: React.FC<PlaylistTracksComponentProps> = ({
     const accessToken = localStorage.getItem("access_token");
 
     if (accessToken !== null) {
-      // Use the SpotifyPlayer instance to initiate playback
       const fullTrackId = `spotify:track:${trackId}`;
       spotifyPlayer.connect(accessToken);
       spotifyPlayer.play(fullTrackId);
     } else {
-      // Handle the case where access token is null
       console.error("Error: Access token is null");
     }
   };
@@ -54,7 +52,6 @@ const PlaylistTracksComponent: React.FC<PlaylistTracksComponentProps> = ({
       }
     };
 
-    // Call the function
     fetchPlaylistTracks();
   }, [playlistId]);
 
@@ -66,14 +63,12 @@ const PlaylistTracksComponent: React.FC<PlaylistTracksComponentProps> = ({
     return <p>Error: {error}</p>;
   }
 
-  console.log("Playlist Tracks:", playlistTracks);
-
   return (
-    <div>
+    <div className="h-52 flex justify-center items-end">
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <ul className="overflow-y-scroll flex">
+        <ul className="flex p-5 gap-5 overflow-x-scroll overflow-y-hidden w-72">
           {playlistTracks.map((item, i) => (
             <li key={i} onClick={() => handleTrackClick(item.track.id)}>
               <div>
@@ -81,7 +76,6 @@ const PlaylistTracksComponent: React.FC<PlaylistTracksComponentProps> = ({
                 {item.track.album && (
                   <div>
                     {Array.isArray(item.track.album) ? (
-                      // Handle the case where album is an array
                       item.track.album.map((album, a) => (
                         <div key={a}>
                           {album.name && <p>Album Name: {album.name}</p>}
@@ -91,17 +85,15 @@ const PlaylistTracksComponent: React.FC<PlaylistTracksComponentProps> = ({
                         </div>
                       ))
                     ) : (
-                      // Handle the case where album is an object
                       <div className="w-40">
                         {item.track.album.images &&
                           item.track.album.images.length > 0 && (
                             <img
-                              className="w-40"
+                              className="w-35"
                               src={item.track.album.images[0].url}
                               alt=""
                             />
                           )}
-                        <div>{item.track.id}</div>
                       </div>
                     )}
                   </div>

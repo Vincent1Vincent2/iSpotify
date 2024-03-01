@@ -4,7 +4,6 @@ export const getAccessToken = async () => {
   const storedAccessTokenTime = localStorage.getItem("access_token_time");
 
   if (!storedAccessTokenTime) {
-    // Handle the case when access token time is not found in localStorage
     return null;
   }
 
@@ -30,7 +29,6 @@ export const getAccessToken = async () => {
       if (refreshResult.status) {
         return localStorage.getItem("access_token");
       } else {
-        // Handle the case when token refresh fails
         return null;
       }
     } catch (error) {

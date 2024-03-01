@@ -10,7 +10,6 @@ const PlaylistItem = () => {
   const [selectedPlaylist, setSelectedPlaylist] =
     useState<SpotifyPlaylistData | null>(null);
   const [images, setImages] = useState<SpotifyImagesData[]>([]);
-  const [loading, setLoading] = useState(true);
 
   const spotifyPlayer = new SpotifyPlayer("iSpotify", 1);
 
@@ -47,16 +46,14 @@ const PlaylistItem = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchData();
-  }, []); // Run once on component mount
-
+  }, []);
   return (
-    <div>
+    <div className="h-60 flex justify-center items-center">
       {selectedPlaylist ? (
         <div>
           <button onClick={() => setSelectedPlaylist(null)}>Back</button>
@@ -67,13 +64,13 @@ const PlaylistItem = () => {
           />
         </div>
       ) : (
-        <ul className="flex overflow-y-scroll">
+        <ul className="flex p-5 gap-7 overflow-y-hidden overflow-x-scroll">
           {playlistInfo.map((playlist, index) => (
-            <li key={index}>
+            <li className="flex items-center" key={index}>
               {images[index] && (
                 <div className="w-40">
                   <img
-                    className="w-40"
+                    className="w-36"
                     src={images[index]?.url}
                     alt={`Playlist Image ${index}`}
                   />

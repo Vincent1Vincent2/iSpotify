@@ -13,8 +13,6 @@ export const getUserPlaylists = async (limit = 50, offset = 0) => {
       Authorization: `Bearer ${await getAccessToken()}`,
     };
 
-    console.log("Request headers for getUserPlaylists:", headers);
-
     const { data } = await spotifyClientApi.get("me/playlists", {
       headers,
       params: {
@@ -28,7 +26,6 @@ export const getUserPlaylists = async (limit = 50, offset = 0) => {
     if (axios.isAxiosError(error)) {
       console.error("Error fetching user playlists:", error);
 
-      // Log the response data if available
       if (error.response) {
         console.error("Response data:", error.response.data);
       }
@@ -66,8 +63,6 @@ export const getPlaylistTrack = async (
       Authorization: `Bearer ${await getAccessToken()}`,
     };
 
-    console.log("Request headers for getTrackPlaylists:", headers);
-
     const { data } = await spotifyClientApi.get(
       `playlists/${playlistId}/tracks`,
       {
@@ -85,7 +80,6 @@ export const getPlaylistTrack = async (
     if (axios.isAxiosError(error)) {
       console.error("Error fetching tracks:", error);
 
-      // Log the response data if available
       if (error.response) {
         console.error("Response data:", error.response.data);
       }

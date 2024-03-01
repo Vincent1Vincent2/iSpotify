@@ -25,7 +25,6 @@ export const getUserPlaylists = async () => {
     if (axios.isAxiosError(error)) {
       console.error("Error fetching user playlists:", error);
 
-      // Log the response data if available
       if (error.response) {
         console.error("Response data:", error.response.data);
       }
