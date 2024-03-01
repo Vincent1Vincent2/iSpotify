@@ -7,6 +7,7 @@ Right now it's a work in progress but the core setup is done to continue allow f
 ## Quick demo
 
 https://github.com/Vincent1Vincent2/iSpotify/assets/143703781/ecdcbdab-15b5-48f0-89ac-918d5daeb1ab
+### In the video you firsr se me sign out, this clears all auth and resets browser/app. Sign in initializes auth and stores values in localStorage, if auth is confirmed im allowed to render the IpodBody, display, header, playlist. Playlist fetch the logged in users (me) and disolays them. Clicking select playlist allows playlisttracks to load, the app fetch the selected playlisttrack and displays them. Once a user clicks on a track album img it saves uri to localStorage, then i get that and use it in the Playback component. I convert into a vaild uri and request a access token. I check if values are valid and then use uri to play the selected track.
 
 
 ## Current Features
