@@ -1,30 +1,58 @@
-# React + TypeScript + Vite
+# iSpotify
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to my dream Spotify player, a virtual iPod UI with Spotify integrated!
 
-Currently, two official plugins are available:
+Right now it's a work in progress but the core setup is done to continue allow further development.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Current Features
 
-## Expanding the ESLint configuration
+- Oath2
+- User playlists and playlist tracks
+- Limited Playback (not 100% stable)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features In The Works
 
-- Configure the top-level `parserOptions` property like this:
+- Stable Playback
+- Auto play next track in playlist
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Features To Be Started
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Navigation Menu
+- Search tracks
+- Play Searched Tracks
+- Create Playlists
+- Play Podcasts
+
+## Want to use?
+
+1 :
+Create a Spotify App and get your CLIENT_ID, CLIENT_SECRET.
+
+2 :
+Choose to use Web API Web, Playback SDK
+
+3 :
+Create .env and add > \*.env .env < to .gitignore
+Add CLIENT_ID, CLIENT_SECRET in .env
+
+TEMPLETE FOR .env :
+VITE_SPOTIFY_CLIENT_ID=CLIENT_ID
+VITE_SPOTIFY_CLIENT_SECRET=CLIENT_SECRET
+
+4 :
+Make sure the vite.config.ts has
+
+// https://vitejs.dev/config/
+export default defineConfig({
+plugins: [react()],
+server: {
+port: 3000,
+strictPort: true,
+host: true,
+},
+});
+
+5 :
+
+npm i
+npm run dev
