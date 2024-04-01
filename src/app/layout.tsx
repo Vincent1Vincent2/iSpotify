@@ -1,6 +1,8 @@
-import authOptions from "@/app/api/auth/[...nextauth]/authOptions";
 import AuthSessionProvider from "@/Providers/AuthSessionProvider";
+import { PlaybackProvider } from "@/Providers/PlaybackProvider";
 import { PlayerProvider } from "@/Providers/PlayerProvider";
+import { PlaylistProvider } from "@/Providers/PlaylistProvider";
+import authOptions from "@/app/api/auth/[...nextauth]/authOptions";
 import { getServerSession } from "next-auth";
 
 export default async function RootLayout({
@@ -14,7 +16,11 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <AuthSessionProvider session={session}>
-          <PlayerProvider>{children}</PlayerProvider>
+          <PlaybackProvider>
+            <PlayerProvider>
+              <PlaylistProvider>{children}</PlaylistProvider>
+            </PlayerProvider>
+          </PlaybackProvider>
         </AuthSessionProvider>
       </body>
     </html>

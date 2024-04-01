@@ -1,9 +1,6 @@
 "use client";
-
-import { PlaybackProvider } from "@/Providers/PlaybackProvider";
-import sdk from "@/lib/spotify-sdk/ClientInstance";
 import { signIn, signOut, useSession } from "next-auth/react";
-import UserPlaylist from "./api/spotify/playlist";
+import Link from "next/link";
 
 export default function Home() {
   const session = useSession();
@@ -21,9 +18,7 @@ export default function Home() {
     <div>
       <p>Welcome {session.data.user?.name}</p>
       <button onClick={() => signOut()}>Sign out</button>
-      <PlaybackProvider>
-        <UserPlaylist sdk={sdk} />
-      </PlaybackProvider>
+      <Link href={"/playlists"}>Go to playlists</Link>
     </div>
   );
 }
