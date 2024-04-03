@@ -79,43 +79,9 @@ const PlaylistContext = createContext<PlaylistContextValue>({
 export const PlaylistProvider: React.FC<PlaylistProviderProps> = ({
   children,
 }) => {
-  const [playlists, setPlaylists] = useState<SimplifiedPlaylist[]>([
-    {
-      tracks: null,
-      collaborative: false,
-      description: "",
-      external_urls: {
-        spotify: "",
-      },
-      followers: {
-        href: "",
-        total: 0,
-      },
-      href: "",
-      id: "",
-      images: [],
-      name: "",
-      owner: {
-        display_name: "",
-        external_urls: {
-          spotify: "",
-        },
-        href: "",
-        id: "",
-        type: "",
-        uri: "",
-      },
-      primary_color: "",
-      public: false,
-      snapshot_id: "",
-      type: "",
-      uri: "",
-    },
-  ]);
-
+  const [playlists, setPlaylists] = useState<SimplifiedPlaylist[]>([]);
   const [selectedPlaylist, setSelectedPlaylist] =
     useState<SimplifiedPlaylist | null>(null);
-
   const [tracks, setTracks] = useState<Page<PlaylistedTrack<Track>>>({
     href: "",
     items: [],
@@ -125,40 +91,62 @@ export const PlaylistProvider: React.FC<PlaylistProviderProps> = ({
     previous: null,
     total: 0,
   });
-
   const [trackReference, setTrackReference] =
     useState<ExtendedTrackReference | null>(null);
 
   useEffect(() => {
-    const fetchPlaylists = async () => {
-      try {
-        const page = await sdk.currentUser.playlists.playlists(5, 0);
-        setPlaylists(page.items);
-      } catch (error) {
-        console.error("Error fetching playlists:", error);
-      }
-    };
+    const storedPlaylists = localStorage.getItem("playlists");
+    const storedSelectedPlaylist = localStorage.getItem("selectedPlaylist");
 
-    fetchPlaylists();
-  }, [sdk]);
+    if (storedPlaylists) {
+      setPlaylists(JSON.parse(storedPlaylists));
+    } else {
+      fetchPlaylists();
+    }
+
+    if (storedSelectedPlaylist) {
+      setSelectedPlaylist(JSON.parse(storedSelectedPlaylist));
+    }
+  }, []);
+
+  const fetchPlaylists = async () => {
+    try {
+      const page = await sdk.currentUser.playlists.playlists(5, 0);
+      setPlaylists(page.items);
+      localStorage.setItem("playlists", JSON.stringify(page.items));
+    } catch (error) {
+      console.error("Error fetching playlists:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchPlaylistTracks = async (playlistId: string) => {
-      try {
-        const playlistResponse = await sdk.playlists.getPlaylistItems(
-          playlistId
-        );
-        setTracks(playlistResponse);
-        setTrackReference(
-          convertTrackToTrackReference(playlistResponse.items[0].track)
-        );
-      } catch (error) {
-        console.error("Error fetching playlist tracks:", error);
+      if (selectedPlaylist) {
+        try {
+          console.log("Fetching playlist tracks...");
+          const playlistResponse = await sdk.playlists.getPlaylistItems(
+            playlistId
+          );
+          console.log("Playlist response:", playlistResponse);
+          setTracks(playlistResponse);
+          console.log("Tracks state updated:", playlistResponse.items);
+        } catch (error) {
+          console.error("Error fetching playlist tracks:", error);
+        }
       }
     };
 
     if (selectedPlaylist) {
       fetchPlaylistTracks(selectedPlaylist.id);
+    }
+  }, [selectedPlaylist, sdk]);
+
+  useEffect(() => {
+    if (selectedPlaylist) {
+      localStorage.setItem(
+        "selectedPlaylist",
+        JSON.stringify(selectedPlaylist)
+      );
     }
   }, [selectedPlaylist, sdk]);
 

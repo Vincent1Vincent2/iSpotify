@@ -1,18 +1,27 @@
 "use client";
 
 import { withNextAuthStrategy } from "@/lib/spotify-sdk/ClientInstance";
-import { useEffect, useState } from "react";
-import { usePlayer } from "./PlayerProvider";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface PlayerProviderProps {
   children: React.ReactNode;
 }
 
+interface PlaybackContextType {
+  deviceId: string;
+  setDeviceId: (deviceId: string) => void;
+}
+
+const PlaybackContext = createContext<PlaybackContextType>({
+  deviceId: "",
+  setDeviceId: () => {},
+});
+
 export const PlaybackProvider: React.FC<PlayerProviderProps> = ({
   children,
 }) => {
   const [player, setPlayer] = useState<Spotify.Player | null>(null);
-  const { setDeviceId } = usePlayer();
+  const [deviceId, setDeviceId] = useState<string>("");
 
   useEffect(() => {
     const initializePlayer = async () => {
@@ -36,7 +45,7 @@ export const PlaybackProvider: React.FC<PlayerProviderProps> = ({
           volume: 0.5,
         });
 
-        newPlayer.addListener("ready", ({ device_id }) => {
+        newPlayer.addListener("ready", async ({ device_id }) => {
           console.log("Device ID", device_id);
           setDeviceId(device_id);
         });
@@ -64,5 +73,11 @@ export const PlaybackProvider: React.FC<PlayerProviderProps> = ({
     initializePlayer();
   }, []);
 
-  return <>{children}</>;
+  return (
+    <PlaybackContext.Provider value={{ deviceId, setDeviceId }}>
+      {children}
+    </PlaybackContext.Provider>
+  );
 };
+
+export const usePlayback = () => useContext(PlaybackContext);

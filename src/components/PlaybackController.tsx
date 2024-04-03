@@ -1,11 +1,11 @@
 "use client";
 
-import { usePlayer } from "@/Providers/PlayerProvider";
+import { usePlayback } from "@/Providers/PlaybackProvider";
 import { usePlaylist } from "@/Providers/PlaylistProvider";
 import sdk from "@/lib/spotify-sdk/ClientInstance";
 
 export default function PlaybackController({}) {
-  const { deviceId } = usePlayer();
+  const { deviceId } = usePlayback();
   const { tracks } = usePlaylist();
 
   const startPlayback = async () => {

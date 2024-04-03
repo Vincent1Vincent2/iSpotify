@@ -17,9 +17,9 @@ export default async function RootLayout({
       <body>
         <AuthSessionProvider session={session}>
           <PlaybackProvider>
-            <PlayerProvider>
-              <PlaylistProvider>{children}</PlaylistProvider>
-            </PlayerProvider>
+            <PlaylistProvider>
+              <PlayerProvider>{children}</PlayerProvider>
+            </PlaylistProvider>
           </PlaybackProvider>
         </AuthSessionProvider>
       </body>
