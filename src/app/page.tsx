@@ -1,6 +1,7 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import "./globals.css";
 
 export default function Home() {
   const session = useSession();
@@ -16,7 +17,7 @@ export default function Home() {
 
   return (
     <div>
-      <p>Welcome {session.data.user?.name}</p>
+      <p>{session.data.user?.name}</p>
       <button onClick={() => signOut()}>Sign out</button>
       <Link href={"/playlists"}>Go to playlists</Link>
     </div>

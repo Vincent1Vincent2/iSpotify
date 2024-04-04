@@ -12,20 +12,19 @@ export default function Playlists({}: { sdk: SpotifyApi }) {
   };
 
   return (
-    <div>
+    <div className="flex overflow-x-scroll w-96">
       {playlists.map((playlist) => (
         <div key={playlist.id}>
           <Link
             href={`playlists/${encodeURIComponent(playlist.name)}`}
             onClick={() => handlePlaylistClick(playlist)}
           >
-            <p>{playlist.name}</p>
             {playlist.images.length > 0 && (
               <div>
                 <img
+                  className="playlistCovers"
                   src={playlist.images[0].url}
                   alt={`Playlist: ${playlist.name}`}
-                  style={{ width: "200px", height: "200px" }}
                 />
               </div>
             )}

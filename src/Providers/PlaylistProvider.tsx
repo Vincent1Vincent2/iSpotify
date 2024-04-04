@@ -111,9 +111,8 @@ export const PlaylistProvider: React.FC<PlaylistProviderProps> = ({
 
   const fetchPlaylists = async () => {
     try {
-      const page = await sdk.currentUser.playlists.playlists(5, 0);
+      const page = await sdk.currentUser.playlists.playlists(15, 0);
       setPlaylists(page.items);
-      localStorage.setItem("playlists", JSON.stringify(page.items));
     } catch (error) {
       console.error("Error fetching playlists:", error);
     }

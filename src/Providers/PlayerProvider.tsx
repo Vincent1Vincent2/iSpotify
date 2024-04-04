@@ -9,8 +9,8 @@ import { usePlaylist } from "./PlaylistProvider";
 
 interface PlayerContextType {
   handleTrackClick: (track: PlaylistedTrack<Track>) => void;
-  skip: () => void;
-  previous: () => void;
+  skipTrack: () => void;
+  previousTrack: () => void;
 }
 
 interface PlayerProviderProps {
@@ -19,8 +19,8 @@ interface PlayerProviderProps {
 
 const PlayerContext = createContext<PlayerContextType>({
   handleTrackClick: () => {},
-  skip: () => {},
-  previous: () => {},
+  skipTrack: () => {},
+  previousTrack: () => {},
 });
 
 export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
@@ -50,11 +50,11 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     }
   };
 
-  const previous = async () => {
+  const previousTrack = async () => {
     await sdk.player.skipToPrevious(deviceId);
   };
 
-  const skip = async () => {
+  const skipTrack = async () => {
     await sdk.player.skipToNext(deviceId);
   };
 
@@ -62,8 +62,8 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     <PlayerContext.Provider
       value={{
         handleTrackClick,
-        skip,
-        previous,
+        skipTrack,
+        previousTrack,
       }}
     >
       {children}

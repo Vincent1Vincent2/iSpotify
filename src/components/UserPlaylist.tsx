@@ -8,7 +8,7 @@ const UserPlaylist: React.FC = ({}) => {
   const { handleTrackClick } = usePlayer();
 
   return (
-    <div>
+    <div className="flex">
       {tracks.items.map((item) => (
         <div
           key={item.track.name}

@@ -1,29 +1,18 @@
-:root {
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+@font-face {
+  font-family: "Myriad-reg";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../utils/MYRIADPRO-REGULAR.woff");
 }
 
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  font-family: "Myriad-reg";
 }
 
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -31,4 +20,9 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+.playlistCovers {
+  width: 300px;
+  height: 300px;
 }
