@@ -1,14 +1,12 @@
 "use client";
 import { usePlayer } from "@/Providers/PlayerProvider";
 import { usePlaylist } from "@/Providers/PlaylistProvider";
+import ScrollWheel from "@/components/ScrollWheel";
 import Link from "next/link";
 
-type PageProps = { params: { name: string } };
-
-export default function SelectedPlaylist({ params }: PageProps) {
+export default function SelectedPlaylist({}) {
   const { selectedPlaylist, tracks } = usePlaylist();
-  const { handleTrackClick } = usePlayer();
-  const searchParams = decodeURIComponent(params.name);
+  const { handleTrackClick, isPlaying, selectedTrack } = usePlayer();
 
   if (!selectedPlaylist) {
     return (
@@ -19,24 +17,39 @@ export default function SelectedPlaylist({ params }: PageProps) {
     );
   }
 
-  const playlistItem = tracks.items.find(
-    (item) => item.track.name === searchParams
-  );
-
   return (
-    <main className="bg-zinc-800 mx-5 max-sm:p-5 max-sm:rounded-lg">
-      <div className="flex flex-col">
-        <h1> {playlistItem?.track.name}</h1>
+    <main className="selectedPlaylist">
+      {isPlaying ? (
+        <div style={{ height: 200, width: 200 }}>
+          <img
+            height={200}
+            width={200}
+            src={selectedTrack?.album.images[0].url}
+            alt=""
+          />
+        </div>
+      ) : (
+        <div>
+          <picture>
+            <img
+              height={200}
+              width={200}
+              src={selectedPlaylist.images[0].url}
+              alt=""
+            />
+          </picture>
+        </div>
+      )}
+      <div className="trackList">
         {tracks.items.map((track) => (
-          <li
-            key={track.track.id}
-            onClick={() => handleTrackClick(track)}
-            className="cursor-pointer hover:bg-gray-700 p-2 rounded-md"
-          >
-            {track.track.name}
-          </li>
+          <div key={track.track.id}>
+            <li onClick={() => handleTrackClick(track)} className="track">
+              {track.track.name}
+            </li>
+          </div>
         ))}
       </div>
+      <ScrollWheel />
     </main>
   );
 }

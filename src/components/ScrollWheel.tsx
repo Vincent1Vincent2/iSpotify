@@ -6,14 +6,16 @@ import Link from "next/link";
 export default function ScrollWheel() {
   const { skipTrack, previousTrack } = usePlayer();
   return (
-    <div>
+    <div className="trackControls">
+      <button className="trackButton" onClick={previousTrack}>
+        Previous
+      </button>
       <Link href="/playlists">
-        <button>Menu</button>
+        <button className="trackButton">Menu</button>
       </Link>
-      <button onClick={previousTrack}>Previous</button>
-      <button>Middle</button>
-      <button onClick={skipTrack}>Skip</button>
-      <button>Play/Pause</button>
+      <button className="trackButton" onClick={skipTrack}>
+        Skip
+      </button>
     </div>
   );
 }
