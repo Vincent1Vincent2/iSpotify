@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@spotify/web-api-ts-sdk": "^1.2.0",
     "@types/spotify-web-playback-sdk": "^0.1.19",
     "framer-motion": "^11.0.25",
     "next": "14.1.2",
