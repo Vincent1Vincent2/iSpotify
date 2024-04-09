@@ -54,7 +54,7 @@ export default function Playlists({}: { sdk: SpotifyApi }) {
               href={`playlists/${encodeURIComponent(playlist.name)}`}
               onClick={() => handlePlaylistClick(playlist)}
             >
-              {playlist.images.length > 0 && (
+              {playlist && playlist.images && playlist.images.length > 0 ? (
                 <picture>
                   <img
                     className="playlistCovers"
@@ -62,6 +62,8 @@ export default function Playlists({}: { sdk: SpotifyApi }) {
                     alt={`Playlist: ${playlist.name}`}
                   />
                 </picture>
+              ) : (
+                <p>No img</p>
               )}
             </Link>
             <p className="playlistName">{playlist.name}</p>

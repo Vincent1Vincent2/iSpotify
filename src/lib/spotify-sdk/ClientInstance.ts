@@ -7,8 +7,9 @@ import {
   SdkConfiguration,
   SdkOptions,
   SpotifyApi,
-} from "../../../node_modules/@spotify/web-api-ts-sdk";
-import { getSession, signIn } from "../../../node_modules/next-auth/react";
+} from "@spotify/web-api-ts-sdk";
+import { getSession, signIn } from "next-auth/react";
+
 /**
  * A class that implements the IAuthStrategy interface and wraps the NextAuth functionality.
  * It retrieves the access token and other information from the JWT session handled by NextAuth.
