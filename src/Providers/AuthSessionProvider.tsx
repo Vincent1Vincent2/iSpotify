@@ -1,8 +1,7 @@
 "use client";
 
-import type { Session } from "next-auth";
+import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import React from "react";
 
 function AuthSessionProvider({
   session,
