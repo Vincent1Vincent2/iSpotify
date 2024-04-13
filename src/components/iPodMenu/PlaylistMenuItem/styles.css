@@ -1,0 +1,13 @@
+#PlaylistMenuItem:hover .chevronRight {
+  fill: white;
+}
+
+#PlaylistMenuItem:hover #PlaylistText {
+  fill: white;
+}
+
+#PlaylistMenuItem:hover #PlaylistItemBase {
+  fill: rgb(47, 132, 206);
+  fill-opacity: 1;
+  transition: all 0.3s;
+}
