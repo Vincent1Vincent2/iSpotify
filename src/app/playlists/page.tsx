@@ -1,3 +1,3 @@
-export default function AllPlaylists({}) {
+export default function PlaylistsPage({}) {
   return <div className="selectedPlaylist"></div>;
 }

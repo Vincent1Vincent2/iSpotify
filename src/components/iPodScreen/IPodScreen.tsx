@@ -27,7 +27,7 @@ export default function IPodScreen() {
       <g
         id="IPodMenuContainer"
         style={{
-          transform: "translate(1.5%, 13%)",
+          transform: "translate(0%, 15%)",
         }}
       >
         <IPodMenu />
