@@ -1,7 +1,6 @@
 "use client";
 import { usePlayer } from "@/Providers/PlayerProvider";
 import { usePlaylist } from "@/Providers/PlaylistProvider";
-import ScrollWheel from "@/components/ScrollWheel";
 import Link from "next/link";
 
 export default function SelectedPlaylist({}) {
@@ -20,10 +19,10 @@ export default function SelectedPlaylist({}) {
   return (
     <main className="selectedPlaylist">
       {isPlaying ? (
-        <div style={{ height: 200, width: 200 }}>
+        <div style={{ height: 100, width: 100 }}>
           <img
-            height={200}
-            width={200}
+            height={100}
+            width={100}
             src={selectedTrack?.album.images[0].url}
             alt=""
           />
@@ -32,8 +31,9 @@ export default function SelectedPlaylist({}) {
         <div>
           <picture>
             <img
-              height={200}
-              width={200}
+              className="selectedImage"
+              height={100}
+              width={100}
               src={selectedPlaylist.images[0].url}
               alt=""
             />
@@ -49,7 +49,6 @@ export default function SelectedPlaylist({}) {
           </div>
         ))}
       </div>
-      <ScrollWheel />
     </main>
   );
 }
