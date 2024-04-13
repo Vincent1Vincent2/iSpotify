@@ -71,7 +71,7 @@ h1 {
 }
 
 .display {
-  width: 250px;
+  width: 274.5px;
   display: flex;
   overflow-x: scroll;
   height: 350px;
@@ -91,7 +91,6 @@ h1 {
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 140px;
 }
 
 .playlistCovers {

@@ -14,16 +14,16 @@ export default function PlaylistMenuItem() {
         <rect
           className="ItemBase"
           width="275"
-          height="26"
+          height="30"
           fill="white"
-          fill-opacity="0.01"
+          fillOpacity="0.01"
         />
         <path
           className="ChevronRight"
           d="M264.059 14.0566L264.081 14.0349L264.09 14.0266L264.617 13.5001L260.365 9.24826L260.249 9.36387L263.621 12.7358C264.043 13.1576 264.043 13.8415 263.621 14.2633L260.248 17.6361L260.364 17.7517L264.059 14.0566ZM265.04 13.9239L265.04 13.9234C265.04 13.9236 265.04 13.9237 265.04 13.9239L265.464 13.5001L265.04 13.9239Z"
           fill="#171717"
           stroke="black"
-          stroke-width="2"
+          strokeWidth="2"
         />
         <path
           className="MenuText"

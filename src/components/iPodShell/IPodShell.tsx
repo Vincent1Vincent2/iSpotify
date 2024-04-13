@@ -19,9 +19,9 @@ export default function IPodShell() {
               y="2"
               width="344"
               height="554"
-              rx="42"
-              stroke="#EDF6FF"
-              strokeWidth="4"
+              rx="44"
+              stroke="#979798"
+              strokeWidth="5"
             />
             <rect
               x="2"
@@ -30,14 +30,14 @@ export default function IPodShell() {
               height="554"
               rx="42"
               stroke="black"
-              strokeOpacity="0.2"
-              strokeWidth="4"
+              strokeOpacity=".4"
+              strokeWidth="2"
             />
           </g>
           <g
             id="ScreenContainer"
             style={{
-              transform: "translate(9.2%, 6%)",
+              transform: "translate(9.2%, 6.5%)",
             }}
           >
             <IPodScreen />
@@ -51,7 +51,7 @@ export default function IPodShell() {
             <IPodScrollWheel />
           </g>
         </g>
-        <g id="ShadowOverlay" className="mix-blend" opacity=".5">
+        <g id="ShadowOverlay" className="mix-blend" opacity=".7">
           <g id="ShadowShell">
             <rect
               x="2"
@@ -86,7 +86,7 @@ export default function IPodShell() {
             <path
               d="M32 41C32 35.4772 36.4772 31 42 31H307C312.523 31 317 35.4772 317 41V246C317 251.523 312.523 256 307 256H42C36.4771 256 32 251.523 32 246V41Z"
               fill="url(#paint1_linear_13_68)"
-              fillOpacity="0.5"
+              fillOpacity="0.8"
             />
             <path
               d="M32 41C32 35.4772 36.4772 31 42 31H307C312.523 31 317 35.4772 317 41V246C317 251.523 312.523 256 307 256H42C36.4771 256 32 251.523 32 246V41Z"

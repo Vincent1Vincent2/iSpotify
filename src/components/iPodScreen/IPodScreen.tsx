@@ -12,22 +12,21 @@ export default function IPodScreen() {
       <path
         d="M0 10C0 4.47715 4.47715 0 10 0H275C280.523 0 285 4.47715 285 10V215C285 220.523 280.523 225 275 225H10C4.47715 225 0 220.523 0 215V10Z"
         fill="#434343"
-        fillOpacity="0.8"
+        fillOpacity="0.5"
       />
       <path
         d="M0 10C0 4.47715 4.47715 0 10 0H275C280.523 0 285 4.47715 285 10V215C285 220.523 280.523 225 275 225H10C4.47715 225 0 220.523 0 215V10Z"
         fill="#434343"
-        fillOpacity="0.7"
+        fillOpacity="0.5"
       />
-      <g filter="url(#filter0_i_19_74)">
-        <path d="M5 5H280V220H5V5Z" fill="#EDF6FF" />
+      <g>
         <path d="M5 5H280V220H5V5Z" fill="#EDF6FF" />
       </g>
 
       <g
         id="IPodMenuContainer"
         style={{
-          transform: "translate(0%, 15%)",
+          transform: "translate(0%, 13%)",
         }}
       >
         <IPodMenu />
@@ -45,15 +44,7 @@ export default function IPodScreen() {
         fill="#1E1E1E"
       />
       <defs>
-        <filter
-          id="filter0_i_19_74"
-          x="5"
-          y="5"
-          width="275"
-          height="219"
-          filterUnits="userSpaceOnUse"
-          colorInterpolationFilters="sRGB"
-        >
+        <filter id="filter0_i_19_74" x="5" y="5" width="275" height="219">
           <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
@@ -88,9 +79,8 @@ export default function IPodScreen() {
           y2="-12.5"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#AEC9DC" />
-          <stop offset="0.16" stopColor="#C9DAE8" />
-          <stop offset="0.32" stopColor="#CCDEED" />
+          <stop stopColor="#C9DAE8" />
+          <stop offset="0.22" stopColor="#CCDEED" />
           <stop offset="0.425" stopColor="#D4E3F1" />
           <stop offset="0.575" stopColor="#D6E2F2" />
         </linearGradient>

@@ -1,14 +1,16 @@
 .MenuItem:hover .ChevronRight {
   fill: white;
   stroke: white;
+  transition: fill 0.3s;
 }
 
 .MenuItem:hover .MenuText {
   fill: white;
+  transition: fill 0.3s;
 }
 
 .MenuItem:hover .ItemBase {
   fill: rgb(47, 132, 206);
   fill-opacity: 1;
-  transition: all 0.3s;
+  transition: fill 0.3s;
 }

@@ -27,7 +27,7 @@ export default function IPodMenu() {
         </g>
       )}
       {pathname === "/playlists" && (
-        <foreignObject x="0" y="-140" width="300" height="350">
+        <foreignObject x="5" y="-140" width="275" height="320">
           <Playlists />
         </foreignObject>
       )}
