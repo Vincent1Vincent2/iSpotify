@@ -1,3 +1,5 @@
+import Albums from "../albums/Albums";
+
 export default function ArtistsPage({}) {
-  return <div></div>;
+  return <Albums />;
 }

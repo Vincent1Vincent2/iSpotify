@@ -1,3 +1,3 @@
-export default function AlbumsPage({}) {
+export default function AlbumsPage() {
   return <div></div>;
 }
