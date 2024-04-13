@@ -1,6 +1,5 @@
 "use client";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
 import "./globals.css";
 
 export default function Home() {
@@ -10,9 +9,5 @@ export default function Home() {
     return null;
   }
 
-  return (
-    <main className="signOut">
-      <Link href={"/playlists"}>Go to playlists</Link>
-    </main>
-  );
+  return;
 }
