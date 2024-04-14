@@ -1,18 +1,25 @@
 "use client";
 
 import { retryWithBackoff } from "@/utils/Retry";
-import { PlaylistedTrack, Track } from "@spotify/web-api-ts-sdk";
+import {
+  PlaylistedTrack,
+  SimplifiedTrack,
+  Track,
+} from "@spotify/web-api-ts-sdk";
 import { createContext, useContext, useState } from "react";
 import sdk from "../lib/spotify-sdk/ClientInstance";
 import { usePlayback } from "./PlaybackProvider";
 import { usePlaylist } from "./PlaylistProvider";
 
 interface PlayerContextType {
-  handleTrackClick: (track: PlaylistedTrack<Track>) => void;
+  handleTrackClick: (track: PlaylistedTrack<Track> | SimplifiedTrack) => void;
+  isPlaylistedTrack: (
+    track: PlaylistedTrack<Track> | SimplifiedTrack
+  ) => track is PlaylistedTrack<Track>;
   skipTrack: () => void;
   previousTrack: () => void;
   isPlaying: boolean;
-  selectedTrack: Track | undefined;
+  selectedTrack: PlaylistedTrack<Track> | SimplifiedTrack | null;
 }
 
 interface PlayerProviderProps {
@@ -21,10 +28,13 @@ interface PlayerProviderProps {
 
 const PlayerContext = createContext<PlayerContextType>({
   handleTrackClick: () => {},
+  isPlaylistedTrack: (track): track is PlaylistedTrack<Track> => {
+    return (track as PlaylistedTrack<Track>).track !== undefined;
+  },
   skipTrack: () => {},
   previousTrack: () => {},
   isPlaying: false,
-  selectedTrack: undefined,
+  selectedTrack: null,
 });
 
 export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
@@ -33,25 +43,37 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
 
   const uris = [...(tracks.items.map((track) => track.track.uri) ?? [])];
   const [isPlaying, setIsPlaying] = useState(false);
-  const [selectedTrack, setSelectedTrack] = useState<Track>();
+  const [selectedTrack, setSelectedTrack] = useState<
+    PlaylistedTrack<Track> | SimplifiedTrack | null
+  >(null);
 
-  const playTrack = async (selectedTrack: PlaylistedTrack<Track>) => {
+  const playTrack = async (track: PlaylistedTrack<Track> | SimplifiedTrack) => {
     // Play the selected track
     await retryWithBackoff(
       () =>
         sdk.player.startResumePlayback(
           deviceId,
           undefined,
-          uris,
-          selectedTrack.track
+          isPlaylistedTrack(track) ? uris : [],
+          isPlaylistedTrack(track) ? track.track : track
         ),
       3,
       1000
     );
-    setSelectedTrack(selectedTrack.track);
+
+    // Set the selected track
+    setSelectedTrack(track);
   };
 
-  const handleTrackClick = async (track: PlaylistedTrack<Track>) => {
+  function isPlaylistedTrack(
+    track: PlaylistedTrack<Track> | SimplifiedTrack
+  ): track is PlaylistedTrack<Track> {
+    return (track as PlaylistedTrack<Track>).track !== undefined;
+  }
+
+  const handleTrackClick = async (
+    track: PlaylistedTrack<Track> | SimplifiedTrack
+  ) => {
     if (deviceId) {
       await playTrack(track);
       setIsPlaying(true);
@@ -70,6 +92,7 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     <PlayerContext.Provider
       value={{
         handleTrackClick,
+        isPlaylistedTrack,
         skipTrack,
         previousTrack,
         isPlaying,

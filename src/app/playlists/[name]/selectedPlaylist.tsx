@@ -5,7 +5,8 @@ import Link from "next/link";
 
 export default function SelectedPlaylist({}) {
   const { selectedPlaylist, tracks } = usePlaylist();
-  const { handleTrackClick, isPlaying, selectedTrack } = usePlayer();
+  const { handleTrackClick, isPlaylistedTrack, isPlaying, selectedTrack } =
+    usePlayer();
 
   if (!selectedPlaylist) {
     return (
@@ -17,15 +18,18 @@ export default function SelectedPlaylist({}) {
   }
 
   return (
-    <main className="selectedPlaylist">
+    <div className="selectedPlaylist">
       {isPlaying ? (
         <div style={{ height: 100, width: 100 }}>
-          <img
+          {/*   <img
             height={100}
             width={100}
-            src={selectedTrack?.album.images[0].url}
+            src={isPlaylistedTrack(
+              selectedTrack?.track.images[0].url ||
+                selectedPlaylist.images[0].url
+            )}
             alt=""
-          />
+          /> */}
         </div>
       ) : (
         <div>
@@ -49,6 +53,6 @@ export default function SelectedPlaylist({}) {
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 }
