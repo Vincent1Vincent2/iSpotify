@@ -28,12 +28,12 @@ export default function IPodMenu() {
         </g>
       )}
       {pathname === "/playlists" && (
-        <foreignObject x="5" y="-140" width="275" height="320">
+        <foreignObject x="5" y="0" width="275" height="190">
           <Playlists />
         </foreignObject>
       )}
       {pathname === "/albums" && (
-        <foreignObject x="15" y="35" width="300" height="350">
+        <foreignObject x="5" y="0" width="275" height="190">
           <Albums />
         </foreignObject>
       )}
@@ -43,7 +43,7 @@ export default function IPodMenu() {
         </foreignObject>
       )}
       {pathname.startsWith("/playlists/") && (
-        <foreignObject x="7" y="20" width="250" height="300">
+        <foreignObject x="5" y="0" width="275" height="190">
           <SelectedPlaylist />
         </foreignObject>
       )}

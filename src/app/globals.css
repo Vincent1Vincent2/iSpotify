@@ -71,10 +71,10 @@ h1 {
 }
 
 .display {
-  width: 274.5px;
+  width: 274px;
   display: flex;
   overflow-x: scroll;
-  height: 350px;
+  height: 190px;
   align-items: center;
   scroll-snap-type: x mandatory;
   -ms-overflow-style: none; /* IE and Edge */
@@ -106,7 +106,8 @@ h1 {
 .selectedPlaylist {
   display: flex;
   align-items: center;
-  height: 150px;
+  height: 190px;
+  width: 275;
   gap: 1rem;
 }
 
