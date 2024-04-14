@@ -1,4 +1,7 @@
 "use client";
+import { PlaybackProvider } from "@/Providers/PlaybackProvider";
+import { PlayerProvider } from "@/Providers/PlayerProvider";
+import { PlaylistProvider } from "@/Providers/PlaylistProvider";
 import { signIn, signOut, useSession } from "next-auth/react";
 import IPodShell from "./iPodShell/IPodShell";
 
@@ -25,7 +28,13 @@ export default function SignIn() {
         </button>
       </header>
       <main className="iPodContainer">
-        <IPodShell />
+        <PlaybackProvider>
+          <PlaylistProvider>
+            <PlayerProvider>
+              <IPodShell />
+            </PlayerProvider>
+          </PlaylistProvider>
+        </PlaybackProvider>
       </main>
     </>
   );
