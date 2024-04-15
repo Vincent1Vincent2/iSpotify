@@ -1,10 +1,10 @@
 "use client";
 
 import Albums from "@/app/albums/Albums";
-import SelectedPlaylist from "@/app/playlists/[name]/SelectedPlaylist";
 import Playlists from "@/app/playlists/playlists";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import SelectedPlaylist from "../../app/playlists/[name]/SelectedPlaylist";
 import AlbumMenuItem from "./AlbumMenuItem/AlbumMenuItem";
 import ArtistMenuItem from "./ArtistMenuItem/ArtistMenuItem";
 import PlaylistMenuItem from "./PlaylistMenuItem/PlaylistMenuItem";
