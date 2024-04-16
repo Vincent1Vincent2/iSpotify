@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# iSpotify
 
-## Getting Started
+Welcome to my dream Spotify player, a virtual iPod UI with Spotify serving as it's operating system!
 
-First, run the development server:
+It's a work in progress but this is V2 with way better UI and way more optimized API usage than before.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<div align="center">
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<img src="src/assets/iSpotifyDemo.gif" width="500"/>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+[![My Skills](https://skillicons.dev/icons?i=ts,next)](https://skillicons.dev)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+</div>
 
-## Learn More
+Features To Be Started
+Search tracks
+Play Searched Tracks
+Create Playlists
+Play Podcasts
 
-To learn more about Next.js, take a look at the following resources:
+## Want to use?
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Right now it's in developer mode witch means i'll need to whitelist you to use the app but you can run it locally.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Create a Spotify App and get your CLIENT_ID, CLIENT_SECRET.
 
-## Deploy on Vercel
+- Choose to use Web API Web, Playback SDK
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Create .env.local and add > \*.env .env < to .gitignore
+- Add CLIENT_ID, CLIENT_SECRET in .env
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+TEMPLATE FOR .env
+
+- SPOTIFY_CLIENT_ID=CLIENT_ID
+- SPOTIFY_CLIENT_SECRET=CLIENT_SECRET
+- NEXTAUTH_SECRET=srandom_string_for_nextauth
+
+- npm i npm run dev
