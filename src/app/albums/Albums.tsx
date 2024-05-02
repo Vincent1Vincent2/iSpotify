@@ -76,7 +76,7 @@ export default function Albums() {
               <img
                 className="coverImage"
                 src={selectedAlbum.images[0].url}
-                alt=""
+                alt="track cover image"
               />
             </picture>
             <p

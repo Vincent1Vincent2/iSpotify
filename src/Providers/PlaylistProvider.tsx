@@ -1,6 +1,5 @@
 "use client";
 
-import sdk from "@/lib/spotify-sdk/ClientInstance";
 import {
   Page,
   PlaylistedTrack,
@@ -9,6 +8,7 @@ import {
   TrackReference,
 } from "@spotify/web-api-ts-sdk";
 import { createContext, useContext, useEffect, useState } from "react";
+import sdk from "../lib/spotify-sdk/ClientInstance";
 
 interface PlaylistContextValue {
   playlists: SimplifiedPlaylist[];

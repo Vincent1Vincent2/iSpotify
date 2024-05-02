@@ -1,6 +1,5 @@
 "use client";
 
-import sdk from "@/lib/spotify-sdk/ClientInstance";
 import {
   Page,
   SavedAlbum,
@@ -8,6 +7,7 @@ import {
   Track,
 } from "@spotify/web-api-ts-sdk";
 import { createContext, useContext, useEffect, useState } from "react";
+import sdk from "../lib/spotify-sdk/ClientInstance";
 
 interface AlbumContextValue {
   albums: Page<SavedAlbum> | undefined;
