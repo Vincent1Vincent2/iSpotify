@@ -21,7 +21,7 @@ export default function Playlists() {
     <div className="display">
       {playlists.map((playlist: SimplifiedPlaylist) => (
         <motion.div
-          className="playlistItem"
+          className="musicItem"
           key={playlist.id}
           initial={{
             scale: 0.8,
@@ -56,7 +56,7 @@ export default function Playlists() {
             {playlist && playlist.images && playlist.images.length > 0 ? (
               <picture>
                 <img
-                  className="playlistCovers"
+                  className="coverImage"
                   src={playlist.images[0].url}
                   alt={`Playlist: ${playlist.name}`}
                 />

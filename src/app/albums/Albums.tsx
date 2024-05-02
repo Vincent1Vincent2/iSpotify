@@ -2,12 +2,15 @@
 import { usePlayer } from "@/Providers/PlayerProvider";
 import sdk from "@/lib/spotify-sdk/ClientInstance";
 import { Album, Page, SavedAlbum } from "@spotify/web-api-ts-sdk";
-import { useEffect, useState } from "react";
+import { motion, useScroll } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export default function Albums() {
   const [savedArtists, setSavedArtists] = useState<Page<SavedAlbum>>();
   const [selectedAlbum, setSelectedAlbum] = useState<Album>();
   const { handleTrackClick } = usePlayer();
+  const { scrollX } = useScroll();
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -23,57 +26,56 @@ export default function Albums() {
   }
 
   return (
-    <div>
+    <div className="display">
       {!selectedAlbum ? (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "start",
-            justifyContent: "start",
-            gap: "1rem",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              height: "190px",
-              overflowY: "scroll",
-              width: "115px",
-            }}
-          >
-            {savedArtists?.items.map((albumItem) => (
-              <div
-                onClick={() => loadAlbum(albumItem.album)}
-                key={albumItem.album.id}
-              >
-                <picture>
-                  <img
-                    width={100}
-                    height={100}
-                    src={albumItem.album.images[0].url}
-                  />
-                </picture>
-              </div>
-            ))}
-          </div>
+        <div className="display">
+          {savedArtists?.items.map((albumItem) => (
+            <motion.div
+              className="musicItem"
+              onClick={() => loadAlbum(albumItem.album)}
+              key={albumItem.album.id}
+              initial={{
+                scale: 0.8,
+                zIndex: 0,
+              }}
+              whileInView={{
+                x: 0,
+
+                scale: 1,
+                translateX: 0,
+                zIndex: 999,
+              }}
+              exit={{
+                x: scrollX.get() > 0 ? -300 : 300,
+                scale: 0.5,
+                opacity: 0,
+              }}
+              transition={{
+                type: "just",
+                duration: 0.5,
+                ease: "easeInOut",
+              }}
+              viewport={{
+                root: scrollRef,
+                amount: 0.9,
+              }}
+            >
+              <picture>
+                <img
+                  className="coverImage"
+                  src={albumItem.album.images[0].url}
+                />
+              </picture>
+            </motion.div>
+          ))}
         </div>
       ) : (
-        <div
-          style={{
-            height: "190px",
-            width: "275px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <div className="musicItem">
           <div style={{ paddingLeft: "10px" }}>
             <picture>
               <img
+                className="coverImage"
                 src={selectedAlbum.images[0].url}
-                width={100}
-                height={100}
                 alt=""
               />
             </picture>

@@ -17,8 +17,13 @@ export default function IPodScrollWheel() {
     await sdk.player.skipToNext(deviceId);
   }
 
-  function playPause() {
-    tracks.items.map((track) => handleTrackClick(track));
+  async function playPause() {
+    const response = await sdk.player.getPlaybackState();
+    if (response.is_playing === true) {
+      await sdk.player.pausePlayback(deviceId);
+    } else {
+      await sdk.player.startResumePlayback(deviceId);
+    }
   }
 
   return (
@@ -48,7 +53,7 @@ export default function IPodScrollWheel() {
             fill="url(#paint1_radial_12_15)"
           />
         </g>
-        <g cursor="pointer" onClick={() => backOneTrack} id="BackButton">
+        <g cursor="pointer" onClick={backOneTrack} id="BackButton">
           <rect
             id="BackBox"
             x="2"
@@ -64,7 +69,7 @@ export default function IPodScrollWheel() {
             fill="#F5F5F5"
           />
         </g>
-        <g cursor="pointer" onClick={() => skipTrack} id="SkipButton">
+        <g cursor="pointer" onClick={skipTrack} id="SkipButton">
           <rect
             id="SkipBox"
             x="169"
@@ -80,7 +85,7 @@ export default function IPodScrollWheel() {
             fill="#F5F5F5"
           />
         </g>
-        <g onClick={() => playPause} cursor="pointer" id="PlayPauseButton">
+        <g onClick={playPause} cursor="pointer" id="PlayPauseButton">
           <rect
             id="PlayPauseBox"
             x="83"

@@ -54,7 +54,7 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
         sdk.player.startResumePlayback(
           deviceId,
           undefined,
-          isPlaylistedTrack(track) ? uris : [],
+          isPlaylistedTrack(track) ? [track.track.uri, ...uris] : [track.uri],
           isPlaylistedTrack(track) ? track.track : track
         ),
       3,

@@ -126,7 +126,7 @@ export const PlaylistProvider: React.FC<PlaylistProviderProps> = ({
           const playlistResponse = await sdk.playlists.getPlaylistItems(
             playlistId
           );
-          console.log("Playlist response:", playlistResponse);
+
           setTracks(playlistResponse);
           console.log("Tracks state updated:", playlistResponse.items);
         } catch (error) {

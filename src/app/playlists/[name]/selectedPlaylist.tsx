@@ -2,6 +2,7 @@
 import { usePlayer } from "@/Providers/PlayerProvider";
 import { usePlaylist } from "@/Providers/PlaylistProvider";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function SelectedPlaylist({}) {
   const { selectedPlaylist, tracks } = usePlaylist();
@@ -17,21 +18,34 @@ export default function SelectedPlaylist({}) {
     );
   }
 
+  useEffect(() => {
+    console.log("this is the selected track:", selectedTrack);
+  }, [selectedTrack]);
+
   return (
     <div className="selectedPlaylist">
-      {isPlaying ? (
+      {isPlaying && selectedTrack !== null && (
         <div style={{ height: 100, width: 100 }}>
-          {/*   <img
-            height={100}
-            width={100}
-            src={isPlaylistedTrack(
-              selectedTrack?.track.images[0].url ||
-                selectedPlaylist.images[0].url
-            )}
-            alt=""
-          /> */}
+          {isPlaylistedTrack(selectedTrack) ? (
+            <img
+              height={100}
+              width={100}
+              src={selectedTrack.track.album.images[0].url}
+              alt=""
+              style={{ zIndex: 2 }}
+            />
+          ) : (
+            <img
+              className="selectedImage"
+              height={100}
+              width={100}
+              src={selectedPlaylist.images[0].url}
+              alt=""
+            />
+          )}
         </div>
-      ) : (
+      )}
+      {selectedTrack === null && (
         <div>
           <picture>
             <img

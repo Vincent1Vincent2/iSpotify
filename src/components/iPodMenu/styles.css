@@ -10,7 +10,7 @@
 }
 
 .MenuItem:hover .ItemBase {
-  fill: rgb(47, 132, 206);
+  fill: cornflowerblue;
   fill-opacity: 1;
   transition: fill 0.3s;
 }

@@ -88,14 +88,14 @@ h1 {
   display: none;
 }
 
-.playlistItem {
+.musicItem {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   scroll-snap-align: center;
 }
 
-.playlistCovers {
+.coverImage {
   width: 140px;
   height: 140px;
 }
@@ -108,12 +108,8 @@ h1 {
   display: flex;
   align-items: center;
   height: 190px;
-  width: 275;
+  width: 275px;
   gap: 1rem;
-}
-
-.selectedImage {
-  border-radius: 5px;
 }
 
 .track {
@@ -121,6 +117,11 @@ h1 {
   color: black;
   cursor: pointer;
   font-size: 15px;
+}
+
+.track:hover {
+  color: rgb(255, 255, 255);
+  background-color: cornflowerblue;
 }
 
 .trackList {

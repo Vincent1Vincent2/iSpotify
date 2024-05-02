@@ -1,5 +1,6 @@
 "use client";
 import Albums from "@/app/albums/Albums";
+import Artists from "@/app/artists/Artists";
 import SelectedPlaylist from "@/app/playlists/[name]/selectedPlaylist";
 import Playlists from "@/app/playlists/playlists";
 import Link from "next/link";
@@ -37,12 +38,12 @@ export default function IPodMenu() {
         </foreignObject>
       )}
       {pathname === "/artists" && (
-        <foreignObject x="15" y="35" width="300" height="350">
-          <h2 style={{ fontSize: 30, color: "black" }}>Under Construction</h2>
+        <foreignObject x="10" y="0" width="275" height="190">
+          <Artists />
         </foreignObject>
       )}
       {pathname.startsWith("/playlists/") && (
-        <foreignObject x="5" y="0" width="275" height="190">
+        <foreignObject x="5" y="0" width="300" height="190">
           <SelectedPlaylist />
         </foreignObject>
       )}

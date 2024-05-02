@@ -19,6 +19,7 @@ const authURL = new URL("https://accounts.spotify.com/authorize");
 const scopes = [
   "user-read-email",
   "user-read-private",
+  "user-follow-read",
   "user-read-playback-state",
   "streaming",
   "user-modify-playback-state",
