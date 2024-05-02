@@ -1,11 +1,8 @@
 "use client";
 
-import playlists from "@/app/playlists/playlists";
 import sdk from "@/lib/spotify-sdk/ClientInstance";
 import {
-  Album,
   Page,
-  PlaylistedTrack,
   SavedAlbum,
   SimplifiedPlaylist,
   Track,
@@ -13,12 +10,14 @@ import {
 import { createContext, useContext, useEffect, useState } from "react";
 
 interface AlbumContextValue {
-  albums: Album | undefined;
-  setAlbums: (album: Album | undefined) => void;
+  albums: Page<SavedAlbum> | undefined;
+  setAlbums: (album: Page<SavedAlbum> | undefined) => void;
   selectedAlbum: SimplifiedPlaylist | null;
   setSelectedAlbum: (playlist: SimplifiedPlaylist | null) => void;
-  tracks: Track[];
-  setTracks: (tracks: Page<PlaylistedTrack<Track>>) => void;
+  tracks: Track[] | undefined;
+  setTracks: (tracks: Track[]) => void;
+  playlist: Track | undefined;
+  setPlaylist: (track: Track) => void;
 }
 
 interface AlbumProviderProps {
@@ -30,14 +29,19 @@ const AlbumContext = createContext<AlbumContextValue>({
   setAlbums: () => {},
   selectedAlbum: null,
   setSelectedAlbum: () => {},
-  tracks: [],
+  tracks: undefined,
   setTracks: () => {},
+  playlist: undefined,
+  setPlaylist: () => {},
 });
 
 export const AlbumProvider: React.FC<AlbumProviderProps> = ({ children }) => {
   const [albums, setAlbums] = useState<Page<SavedAlbum>>();
-  const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
-  const [tracks, setTracks] = useState<Track>();
+  const [selectedAlbum, setSelectedAlbum] = useState<SimplifiedPlaylist | null>(
+    null
+  );
+  const [tracks, setTracks] = useState<Track[] | undefined>(undefined);
+  const [playlist, setPlaylist] = useState<Track | undefined>(undefined);
 
   useEffect(() => {
     const storedAlbums = localStorage.getItem("albums");
@@ -70,7 +74,7 @@ export const AlbumProvider: React.FC<AlbumProviderProps> = ({ children }) => {
           console.log("Fetching playlist tracks...");
           const playlistResponse = await sdk.tracks.get(playlistId);
 
-          setTracks(playlistResponse);
+          setPlaylist(playlistResponse);
           console.log("Tracks state updated:", playlistResponse);
         } catch (error) {
           console.error("Error fetching playlist tracks:", error);
@@ -96,7 +100,8 @@ export const AlbumProvider: React.FC<AlbumProviderProps> = ({ children }) => {
         setAlbums,
         selectedAlbum,
         setSelectedAlbum,
-        playlists,
+        playlist,
+        setPlaylist,
         tracks,
         setTracks,
       }}
